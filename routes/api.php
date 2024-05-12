@@ -13,6 +13,6 @@ Route::delete('/professionals/{id}', [ProfessionalController::class, 'destroy'])
 Route::get('/availability', [ProfessionalAvailabilityController::class, 'index']);
 Route::post('/availability', [ProfessionalAvailabilityController::class, 'store']);
 Route::get('/availability/{id}', [ProfessionalAvailabilityController::class, 'show']);
-Route::put('/availability/{id}', [ProfessionalAvailabilityController::class, 'update']);
+Route::put('/availability', [ProfessionalAvailabilityController::class, 'update']);
 Route::delete('/availability/{id}', [ProfessionalAvailabilityController::class, 'destroy']);
 

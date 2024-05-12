@@ -11,7 +11,7 @@ class ProfessionalAvailability extends Model
 
     // especificar quais atributos podem ser atribuídos em massa
     protected $fillable = [
-        'professional_id', 'day_of_week', 'start_time', 'end_time'
+        'professional_id', 'day_of_week', 'hour'
     ];
 
     public static $rules = [
@@ -21,26 +21,9 @@ class ProfessionalAvailability extends Model
         'end_time' => 'required|date_format:H:i|after:start_time',
     ];
 
-    public static $rulesUpdate = [
-        'start_time' => 'required|date_format:H:i',
-        'end_time' => 'required|date_format:H:i|after:start_time',
-    ];
-
-    // permite consultar profissionais por dia da semana
-    public function scopeBySpecialization($query, $day)
-    {
-        return $query->where('day_of_week', $day);
-    }
-
     // validação de dados
     public static function validate($data)
     {
         return validator($data, static::$rules);
-    }
-
-    // validação de dados
-    public static function validateUpdate($data)
-    {
-        return validator($data, static::$rulesUpdate);
     }
 }
