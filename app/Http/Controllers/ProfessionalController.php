@@ -45,7 +45,7 @@ class ProfessionalController extends Controller
             return response()->json(['error' => 'Professional not found.'], 404);
         }
 
-        $validatedData = Professional::validate($request->all());
+        $validatedData = Professional::validateUpdate($request->all());
 
         if ($validatedData->fails()) {
             return response()->json(['error' => $validatedData->errors()], 422);
@@ -65,7 +65,11 @@ class ProfessionalController extends Controller
         $professional = Professional::findOrFail($id);
 
         if ($professional->delete()) {
-            return response()->json(null, 204);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Professional deleted successfully.',
+                'professional' => $professional
+            ], 200);
         } else {
             return response()->json(['error' => 'Failed to delete professional.'], 500);
         }

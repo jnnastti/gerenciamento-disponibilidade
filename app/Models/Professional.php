@@ -22,6 +22,14 @@ class Professional extends Model
         'email' => 'required|email|unique:professionals,email',
     ];
 
+    public static $rulesUpdate = [
+        'name' => 'string|max:255',
+        'specialization' => 'string|max:255',
+        'description' => 'nullable|string',
+        'phone_number' => 'nullable|string|max:20',
+        'email' => 'email|unique:professionals,email',
+    ];
+
     // permite consultar profissionais por especialização
     public function scopeBySpecialization($query, $specialization)
     {
@@ -32,6 +40,12 @@ class Professional extends Model
     public static function validate($data)
     {
         return validator($data, static::$rules);
+    }
+
+    // validação de dados
+    public static function validateUpdate($data)
+    {
+        return validator($data, static::$rulesUpdate);
     }
 
 }

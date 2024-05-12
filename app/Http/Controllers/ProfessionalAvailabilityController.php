@@ -47,13 +47,16 @@ class ProfessionalAvailabilityController extends Controller
         if (!$availability) {
             return response()->json(['error' => 'Availability not found.'], 404);
         }
-        $validatedData = ProfessionalAvailability::validate($request->all());
+        $validatedData = ProfessionalAvailability::validateUpdate($request->all());
 
         if ($validatedData->fails()) {
             return response()->json(['error' => $validatedData->errors()], 422);
         }
 
-        $availability->update($request->all());
+        $availability->update([
+            'start_time' => $request->input('start_time'),
+            'end_time' => $request->input('end_time')
+        ]);
 
         return response()->json([
             'status' => 'success',
@@ -68,7 +71,11 @@ class ProfessionalAvailabilityController extends Controller
         $availability = ProfessionalAvailability::findOrFail($id);
 
         if ($availability->delete()) {
-            return response()->json(null, 204);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Availability deleted successfully.',
+                'availability' => $availability
+            ], 200);
         } else {
             return response()->json(['error' => 'Failed to delete availability.'], 500);
         }
