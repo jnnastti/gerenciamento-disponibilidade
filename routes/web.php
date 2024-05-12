@@ -5,7 +5,9 @@ use App\Http\Controllers\ProfessionalController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $routes = Route::getRoutes();
+
+    return view('welcome', compact('routes'));
 });
 
 
