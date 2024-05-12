@@ -20,7 +20,9 @@ para evitar conflitos com outras reservas.
 ## Instruções de Instalação
 
 Antes de seguir os passos apresentados, garanta que 
-o PHP versão 8.0 está instalado, juntamente com o composer.
+o PHP versão 8.0 está instalado, juntamente com o composer e o git.
+
+Para esse trabalho, foi utilizado o Laravel v11.7.0. 
 
 Acesse o arquivo php.info e descomente a linha referente ao sqlite3.
 
@@ -108,7 +110,7 @@ Este é um guia de uso para as rotas de um projeto Laravel. Abaixo estão listad
 
 - **Rota**: <span style="color:green">`POST`</span> /api/professionals
 - **Descrição**: Cria um novo profissional com os dados fornecidos dentro de um JSON.
-- - **Body**:
+- **Body**:
 ```json
 {
     "name": "Kevin João P",
@@ -253,16 +255,7 @@ Este é um guia de uso para as rotas de um projeto Laravel. Abaixo estão listad
 ```json
 {
     "status": "success",
-    "message": "Availability created successfully.",
-    "availability": {
-        "professional_id": 1,
-        "day_of_week": "Tuesday",
-        "start_time": "09:00",
-        "end_time": "12:00",
-        "updated_at": "2024-05-12T17:40:22.000000Z",
-        "created_at": "2024-05-12T17:40:22.000000Z",
-        "id": 1
-    }
+    "message": "Availability created successfully."
 }
 ```
 
@@ -294,24 +287,17 @@ Este é um guia de uso para as rotas de um projeto Laravel. Abaixo estão listad
 - **Body**:
 ```json
 {
-    "start_time": "09:30",
-    "end_time": "12:00"
+    "professional_id": 3,
+    "day_of_week": "Friday",
+    "start_time": "20:00",
+    "end_time": "22:00"
 }
 ```
 - **Retorno**:
 ```json
 {
     "status": "success",
-    "message": "Availability updated successfully.",
-    "availability": {
-        "id": 1,
-        "professional_id": 1,
-        "day_of_week": "Tuesday",
-        "start_time": "09:30",
-        "end_time": "12:00",
-        "created_at": "2024-05-12T17:40:22.000000Z",
-        "updated_at": "2024-05-12T17:43:34.000000Z"
-    }
+    "message": "Availability updated successfully."
 }
 ```
 
@@ -339,5 +325,64 @@ Este é um guia de uso para as rotas de um projeto Laravel. Abaixo estão listad
     }
 }
 ```
+#### Filtrar disponibilidades
+
+- **Rota**: <span style="color:red">`POST`</span> /api/availability/getHours
+- **Descrição**: Filtra as disponibilidades por dia da semana, profissional
+ e/ou intervalo de tempo.
+- **Body**:
+```json
+{
+   "day": "Friday",
+   "professional": "3",
+   "startTime": "15:00",
+   "endTime": "22:00"
+}
+```
+**Retorno**:
+```json
+{
+    "Friday": {
+        "3": [
+            "21:30",
+            "22:00"
+        ]
+    }
+}
+```
+#### Reservar horário
+
+- **Rota**: <span style="color:red">`POST`</span> /api/availability/reserve
+- **Descrição**: Reservar um horário da agenda do profissional.
+- **Body**:
+```json
+{
+    "slot": 23, 
+    "name": "Janna"
+}
+```
+- **Retorno**:
+```json
+{
+    "status": "success",
+    "message": "Availability reserved successfully."
+}
+```
+#### Cancelar Reserva
+
+- **Rota**: <span style="color:red">`POST`</span> /api/availability/cancelSlot/{id}
+- **Descrição**: Cancelar agendamento de horário do profissional.
+- **Body**:
+```
+// não é necessário
+```
+- **Retorno**:
+```json
+{
+    "status": "success",
+    "message": "Slot canceled successfully."
+}
+```
 ## Contato
 Para perguntas ou feedback, entre em contato através do email: janna.sangaletti6@gmail.com
+

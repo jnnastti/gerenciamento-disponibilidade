@@ -97,7 +97,7 @@ class ProfessionalAvailabilityController extends Controller
                 ProfessionalAvailability::create([
                     'professional_id' => $request->input('professional_id'),
                     'day_of_week' => $request->input('day_of_week'),
-                    'hour' => $interval->format('H:i'),
+                    'hour' => $interval->format('H:i')
                 ]);
             }
 
@@ -125,5 +125,83 @@ class ProfessionalAvailabilityController extends Controller
         } else {
             return response()->json(['error' => 'Failed to delete availability.'], 500);
         }
+    }
+
+    // retornar horarios disponiveis filtradas
+    public function getHours(Request $request)
+    {
+        $dayOfWeek = $request->input('day');
+        $professionalId = $request->input('professional');
+        $startTime = $request->input('startTime');
+        $endTime = $request->input('endTime');
+
+        $availabilities = ProfessionalAvailability::getHours($dayOfWeek, $professionalId, $startTime, $endTime);
+        $formattedHours = [];
+
+        foreach ($availabilities as $availability) {
+            $dayOfWeek = $availability->day_of_week;
+            $professionalId = $availability->professional_id;
+            $hour = $availability->hour;
+
+            if (!isset($formattedHours[$dayOfWeek][$professionalId])) {
+                $formattedHours[$dayOfWeek][$professionalId] = [];
+            }
+
+            $formattedHours[$dayOfWeek][$professionalId][] = $hour;
+        }
+
+        return response()->json($formattedHours);
+    }
+
+    // reservar
+    public function reserveSlot(Request $request)
+    {
+        $validatedData = ProfessionalAvailability::validateReserve($request->all());
+
+        if ($validatedData->fails()) {
+            return response()->json(['error' => $validatedData->errors()], 422);
+        }
+
+        $slotId = $request->input('slot');
+
+        // Encontrar o slot de horário pelo ID
+        $slot = ProfessionalAvailability::find($slotId);
+
+        ProfessionalAvailability::where('professional_id', $slot->professional_id)
+            ->where('day_of_week', $slot->day_of_week)
+            ->where('hour', '>=', $slot->hour)
+            ->where('available', 1)
+            ->where('hour', '<', date('H:i', strtotime("$slot->hour +1 hour")))
+            ->update([
+                'available' => false,
+                'name' => $request->input('name')
+            ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Availability reserved successfully.'
+        ], 200);
+    }
+
+    // Cancelar reserva
+    public function cancelSlot($id)
+    {
+        $availability = ProfessionalAvailability::findOrFail($id);
+
+        ProfessionalAvailability::where('professional_id', $availability->professional_id)
+            ->where('day_of_week', $availability->day_of_week)
+            ->where('hour', '>=', $availability->hour)
+            ->where('available', 0)
+            ->where('name', $availability->name)
+            ->where('hour', '<', date('H:i', strtotime("$availability->hour +1 hour")))
+            ->update([
+                'available' => true,
+                'name' => null
+            ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Slot canceled successfully.'
+        ], 200);
     }
 }

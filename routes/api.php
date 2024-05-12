@@ -16,3 +16,6 @@ Route::get('/availability/{id}', [ProfessionalAvailabilityController::class, 'sh
 Route::put('/availability', [ProfessionalAvailabilityController::class, 'update']);
 Route::delete('/availability/{id}', [ProfessionalAvailabilityController::class, 'destroy']);
 
+Route::post('/availability/getHours', [ProfessionalAvailabilityController::class, 'getHours']);
+Route::post('/availability/reserveSlot', [ProfessionalAvailabilityController::class, 'reserveSlot']);
+Route::get('/availability/cancelSlot/{id}', [ProfessionalAvailabilityController::class, 'cancelSlot']);
