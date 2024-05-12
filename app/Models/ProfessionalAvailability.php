@@ -21,6 +21,11 @@ class ProfessionalAvailability extends Model
         'end_time' => 'required|date_format:H:i|after:start_time',
     ];
 
+    public static $rulesUpdate = [
+        'start_time' => 'required|date_format:H:i',
+        'end_time' => 'required|date_format:H:i|after:start_time',
+    ];
+
     // permite consultar profissionais por dia da semana
     public function scopeBySpecialization($query, $day)
     {
@@ -31,5 +36,11 @@ class ProfessionalAvailability extends Model
     public static function validate($data)
     {
         return validator($data, static::$rules);
+    }
+
+    // validação de dados
+    public static function validateUpdate($data)
+    {
+        return validator($data, static::$rulesUpdate);
     }
 }
