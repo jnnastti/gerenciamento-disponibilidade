@@ -20,11 +20,13 @@ para evitar conflitos com outras reservas.
 ## Instruções de Instalação
 
 Antes de seguir os passos apresentados, garanta que 
-o PHP versão 8.0 está instalado, juntamente com o composer e o git.
+o PHP versão 8.0 está instalado, juntamente com o composer, npm e o git.
 
 Para esse trabalho, foi utilizado o Laravel v11.7.0. 
 
-Acesse o arquivo php.info e descomente a linha referente ao sqlite3.
+Acesse o arquivo php.ini e descomente a linha referente ao sqlite3, fileinfo, zipe e pdo_sqlite.
+
+Certifique-se de que a pasta onde você colocará o projeto não possui caracteres especiais no nome.
 
  ### Clonar o Repositório
 - Abra o terminal ou prompt de comando e navegue até o diretório onde 
@@ -42,12 +44,14 @@ git clone https://github.com/jnnastti/gerenciamento-disponibilidade.git
 ```
 composer install
 ```
+### Instalar Npm:
 
+- Execute o seguinte comando para instalar as dependências do node:
+```
+npm install
+```
 ### Copiar o Arquivo de Configuração do Ambiente:
-- Faça uma cópia do arquivo ".env.example" e renomeie-o para ".env":
-```
-cp .env.example .env
-```
+- Faça uma cópia do arquivo ".env.example" e renomeie-o para ".env".
 - Abra o arquivo ".env" e configure as variáveis de ambiente, 
 como banco de dados, URL, etc., de acordo com a sua configuração.
 
