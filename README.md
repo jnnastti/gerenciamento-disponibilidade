@@ -74,7 +74,7 @@ php artisan serve
 o aplicativo no seu navegador visitando o endereço http://localhost:8000 
 (ou o endereço indicado pelo comando).
 
-## Guia de Uso
+## Guia de Uso e exemplos
 
 Este é um guia de uso para as rotas de um projeto Laravel. Abaixo estão listadas as rotas disponíveis e suas respectivas funcionalidades.
 
@@ -82,57 +82,262 @@ Este é um guia de uso para as rotas de um projeto Laravel. Abaixo estão listad
 
 #### Listar todos os Profissionais
 
-- **Rota**: <span style="color:blue">`GET`</span> /professionals
+- **Rota**: <span style="color:blue">`GET`</span> /api/professionals
 - **Descrição**: Retorna uma lista de todos os profissionais cadastrados.
+- **Body**:
+```
+// Não é necessário
+```
+- **Retorno**:
+```json
+[
+  {
+    "id": 1,
+    "name": "Kevin João",
+    "specialization": "Psicologo",
+    "description": "Um psico gente boa",
+    "phone_number": "48 999443300",
+    "email": "kevin@gmail.com",
+    "created_at": "2024-05-12T16:56:53.000000Z",
+    "updated_at": "2024-05-12T16:56:53.000000Z"
+  }
+]
+```
 
 #### Criar um novo Profissional
 
-- **Rota**: <span style="color:green">`POST`</span> /professionals
+- **Rota**: <span style="color:green">`POST`</span> /api/professionals
 - **Descrição**: Cria um novo profissional com os dados fornecidos dentro de um JSON.
+- - **Body**:
+```json
+{
+    "name": "Kevin João P",
+    "specialization": "Psicologo",
+    "description": "Um psico gente boa",
+    "phone_number": "48 999443300",
+    "email": "kevin123@gmail.com"
+}
+```
+- **Retorno**:
+```json
+{
+    "status": "success",
+    "message": "Professional created successfully.",
+    "professional": {
+        "name": "Kevin João P",
+        "specialization": "Psicologo",
+        "description": "Um psico gente boa",
+        "phone_number": "48 999443300",
+        "email": "kevin123@gmail.com",
+        "updated_at": "2024-05-12T17:04:49.000000Z",
+        "created_at": "2024-05-12T17:04:49.000000Z",
+        "id": 2
+    }
+}
+```
 
 #### Mostrar detalhes de um Profissional
 
-- **Rota**: <span style="color:blue">`GET`</span> /professionals/{id}
+- **Rota**: <span style="color:blue">`GET`</span> /api/professionals/{id}
 - **Descrição**: Retorna os detalhes do profissional com o ID especificado.
+- **Body**:
+```
+// Não é necessário
+```
+- **Retorno**:
+```json
+{
+    "id": 1,
+    "name": "Kevin João",
+    "specialization": "Psicologo",
+    "description": "Um psico gente boa",
+    "phone_number": "48 999443300",
+    "email": "kevin@gmail.com",
+    "created_at": "2024-05-12T16:56:53.000000Z",
+    "updated_at": "2024-05-12T16:56:53.000000Z"
+}
+```
 
 #### Atualizar os dados de um Profissional
 
-- **Rota**: <span style="color:orange">`PUT`</span> /professionals/{id}
+- **Rota**: <span style="color:orange">`PUT`</span> /api/professionals/{id}
 - **Descrição**: Atualiza os dados fornecidos no JSON do corpo do profissional com o ID especificado.
-
+- **Body**:
+```json
+{
+    "description": "Um psico muito muito muito gente boa"
+}
+```
+- **Retorno**:
+```json
+{
+    "status": "success",
+    "message": "Professional updated successfully.",
+    "professional": {
+        "id": 1,
+        "name": "Kevin João",
+        "specialization": "Psicologo",
+        "description": "Um psico muito muito muito gente boa",
+        "phone_number": "48 999443300",
+        "email": "kevin@gmail.com",
+        "created_at": "2024-05-12T16:56:53.000000Z",
+        "updated_at": "2024-05-12T17:16:06.000000Z"
+    }
+}
+```
 #### Excluir um Profissional
 
-- **Rota**: <span style="color:red">`DELETE`</span> /professionals/{id}
+- **Rota**: <span style="color:red">`DELETE`</span> /api/professionals/{id}
 - **Descrição**: Exclui o profissional com o ID especificado.
+- **Body**:
+```
+// Não é necessário
+```
+- **Retorno**:
+```json
+{
+    "status": "success",
+    "message": "Professional deleted successfully.",
+    "professional": {
+        "id": 5,
+        "name": "Kevin João P",
+        "specialization": "Psicologo",
+        "description": "Um psico gente boa",
+        "phone_number": "48 999443300",
+        "email": "kevin123@gmail.com",
+        "created_at": "2024-05-12T17:33:38.000000Z",
+        "updated_at": "2024-05-12T17:33:38.000000Z"
+    }
+}
+```
 
 ### Rotas para Disponibilidade de Profissionais
 
 #### Listar todas as Disponibilidades
 
-- **Rota**: <span style="color:blue">`GET`</span> /availability
+- **Rota**: <span style="color:blue">`GET`</span> /api/availability
 - **Descrição**: Retorna uma lista de todas as disponibilidades cadastradas dos profissionais.
+- **Body**:
+```
+// Não é necessário
+```
+- **Retorno**:
+```json
+[
+    {
+        "id": 1,
+        "professional_id": 1,
+        "day_of_week": "Tuesday",
+        "start_time": "09:00",
+        "end_time": "12:00",
+        "created_at": "2024-05-12T17:40:22.000000Z",
+        "updated_at": "2024-05-12T17:40:22.000000Z"
+    }
+]
+```
 
 #### Criar uma nova Disponibilidade
 
-- **Rota**: <span style="color:green">`POST`</span> /availability
+- **Rota**: <span style="color:green">`POST`</span> /api/availability
 - **Descrição**: Cria uma nova disponibilidade para um profissional com os dados do JSON.
+- **Body**:
+```json
+{
+    "professional_id": 1,
+    "day_of_week": "Tuesday",
+    "start_time": "09:00",
+    "end_time": "12:00"
+}
+```
+- **Retorno**:
+```json
+{
+    "status": "success",
+    "message": "Availability created successfully.",
+    "availability": {
+        "professional_id": 1,
+        "day_of_week": "Tuesday",
+        "start_time": "09:00",
+        "end_time": "12:00",
+        "updated_at": "2024-05-12T17:40:22.000000Z",
+        "created_at": "2024-05-12T17:40:22.000000Z",
+        "id": 1
+    }
+}
+```
 
 #### Mostrar detalhes de uma Disponibilidade
 
-- **Rota**: <span style="color:blue">`GET`</span> /availability/{id}
+- **Rota**: <span style="color:blue">`GET`</span> /api/availability/{id}
 - **Descrição**: Retorna os detalhes da disponibilidade com o ID especificado.
+- **Body**:
+```
+// Não é necessário
+```
+- **Retorno**:
+```json
+{
+    "id": 1,
+    "professional_id": 1,
+    "day_of_week": "Tuesday",
+    "start_time": "09:00",
+    "end_time": "12:00",
+    "created_at": "2024-05-12T17:40:22.000000Z",
+    "updated_at": "2024-05-12T17:40:22.000000Z"
+}
+```
 
 #### Atualizar os dados de uma Disponibilidade
 
-- **Rota**: <span style="color:orange">`PUT`</span> /availability/{id}
+- **Rota**: <span style="color:orange">`PUT`</span> /api/availability/{id}
 - **Descrição**: Atualiza os dados da disponibilidade com o ID especificado.
+- **Body**:
+```json
+{
+    "start_time": "09:30",
+    "end_time": "12:00"
+}
+```
+- **Retorno**:
+```json
+{
+    "status": "success",
+    "message": "Availability updated successfully.",
+    "availability": {
+        "id": 1,
+        "professional_id": 1,
+        "day_of_week": "Tuesday",
+        "start_time": "09:30",
+        "end_time": "12:00",
+        "created_at": "2024-05-12T17:40:22.000000Z",
+        "updated_at": "2024-05-12T17:43:34.000000Z"
+    }
+}
+```
 
 #### Excluir uma Disponibilidade
 
-- **Rota**: <span style="color:red">`DELETE`</span> /availability/{id}
+- **Rota**: <span style="color:red">`DELETE`</span> /api/availability/{id}
 - **Descrição**: Exclui a disponibilidade com o ID especificado.
-
-## Exemplos ou Demonstração
-
+- **Body**:
+```
+// Não é necessário
+```
+- **Retorno**:
+```json
+{
+    "status": "success",
+    "message": "Availability deleted successfully.",
+    "availability": {
+        "id": 1,
+        "professional_id": 1,
+        "day_of_week": "Tuesday",
+        "start_time": "09:30",
+        "end_time": "12:00",
+        "created_at": "2024-05-12T17:40:22.000000Z",
+        "updated_at": "2024-05-12T17:43:34.000000Z"
+    }
+}
+```
 ## Contato
 Para perguntas ou feedback, entre em contato através do email: janna.sangaletti6@gmail.com

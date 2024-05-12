@@ -9,15 +9,3 @@ Route::get('/', function () {
 });
 
 
-Route::get('/professionals', [ProfessionalController::class, 'index']);
-Route::post('/professionals', [ProfessionalController::class, 'store']);
-Route::get('/professionals/{id}', [ProfessionalController::class, 'show']);
-Route::put('/professionals/{id}', [ProfessionalController::class, 'update']);
-Route::delete('/professionals/{id}', [ProfessionalController::class, 'destroy']);
-
-Route::get('/availability', [ProfessionalAvailabilityController::class, 'index']);
-Route::post('/availability', [ProfessionalAvailabilityController::class, 'store']);
-Route::get('/availability/{id}', [ProfessionalAvailabilityController::class, 'show']);
-Route::put('/availability/{id}', [ProfessionalAvailabilityController::class, 'update']);
-Route::delete('/availability/{id}', [ProfessionalAvailabilityController::class, 'destroy']);
-
