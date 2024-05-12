@@ -76,6 +76,62 @@ o aplicativo no seu navegador visitando o endereço http://localhost:8000
 
 ## Guia de Uso
 
+Este é um guia de uso para as rotas de um projeto Laravel. Abaixo estão listadas as rotas disponíveis e suas respectivas funcionalidades.
+
+### Rotas para Profissionais
+
+#### Listar todos os Profissionais
+
+- **Rota**: <span style="color:blue">`GET`</span> /professionals
+- **Descrição**: Retorna uma lista de todos os profissionais cadastrados.
+
+#### Criar um novo Profissional
+
+- **Rota**: <span style="color:green">`POST`</span> /professionals
+- **Descrição**: Cria um novo profissional com os dados fornecidos dentro de um JSON.
+
+#### Mostrar detalhes de um Profissional
+
+- **Rota**: <span style="color:blue">`GET`</span> /professionals/{id}
+- **Descrição**: Retorna os detalhes do profissional com o ID especificado.
+
+#### Atualizar os dados de um Profissional
+
+- **Rota**: <span style="color:orange">`PUT`</span> /professionals/{id}
+- **Descrição**: Atualiza os dados fornecidos no JSON do corpo do profissional com o ID especificado.
+
+#### Excluir um Profissional
+
+- **Rota**: <span style="color:red">`DELETE`</span> /professionals/{id}
+- **Descrição**: Exclui o profissional com o ID especificado.
+
+### Rotas para Disponibilidade de Profissionais
+
+#### Listar todas as Disponibilidades
+
+- **Rota**: <span style="color:blue">`GET`</span> /availability
+- **Descrição**: Retorna uma lista de todas as disponibilidades cadastradas dos profissionais.
+
+#### Criar uma nova Disponibilidade
+
+- **Rota**: <span style="color:green">`POST`</span> /availability
+- **Descrição**: Cria uma nova disponibilidade para um profissional com os dados do JSON.
+
+#### Mostrar detalhes de uma Disponibilidade
+
+- **Rota**: <span style="color:blue">`GET`</span> /availability/{id}
+- **Descrição**: Retorna os detalhes da disponibilidade com o ID especificado.
+
+#### Atualizar os dados de uma Disponibilidade
+
+- **Rota**: <span style="color:orange">`PUT`</span> /availability/{id}
+- **Descrição**: Atualiza os dados da disponibilidade com o ID especificado.
+
+#### Excluir uma Disponibilidade
+
+- **Rota**: <span style="color:red">`DELETE`</span> /availability/{id}
+- **Descrição**: Exclui a disponibilidade com o ID especificado.
+
 ## Exemplos ou Demonstração
 
 ## Contato
